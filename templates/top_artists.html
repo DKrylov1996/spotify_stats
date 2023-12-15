@@ -1,0 +1,36 @@
+{% extends "not_logged_in.html" %}
+
+{% block login_button %}
+<button type="button" class="btn btn-outline-dark me-2" onclick="location.href='/logout'">Logout</button>
+{% endblock %}
+
+{% block log_status %}
+<p><b> </b></p>
+{% endblock %}
+
+{% block ask_for_login %}
+<div class="container">
+    <div class="pt-3 text-center">
+        <h2 class="top-name">Top Artists ({{ time_range_dict[time_range] }})</h2>
+    </div>
+    <div class="time-buttons d-flex justify-content-center align-items-center pb-1">
+        <form action="/top_artists" method="get">
+            <button class="btn btn-outline-secondary px-2" type="submit" name="time_range" value="short_term">Last 4 weeks</button>
+            <button class="btn btn-outline-secondary px-2" type="submit" name="time_range" value="medium_term">Last 6 months</button>
+            <button class="btn btn-outline-secondary px-4" type="submit" name="time_range" value="long_term">All time</button>
+        </form>
+    </div>
+    <div class="row">
+        {% for artist in artists %}
+            <div class="col-md-4">
+                <div class="d-flex justify-content-center align-items-center">
+                    <a class="artist-img" href="{{artist.url}}"><img class="resized-image" src="{{artist.img}}"></a>
+                </div>
+                <div class="text-center">
+                    <p>{{artist.place}} {{artist.name}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

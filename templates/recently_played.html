@@ -1,0 +1,64 @@
+{% extends "not_logged_in.html" %}
+
+{% block login_button %}
+<button type="button" class="btn btn-outline-dark me-2" onclick="location.href='/logout'">Logout</button>
+{% endblock %}
+
+{% block log_status %}
+<p><b> </b></p>
+{% endblock %}
+
+{% block ask_for_login %}
+<div class="container">
+    <div class="pt-3 text-center">
+        <h2 class="top-name">Recently played</h2>
+    </div>
+
+
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" class="col-4 text-start">Track</th>
+      <th scope="col" class="col-4 text-center">Artist</th>
+      <th scope="col" class="col-4 text-end">Played at</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in play_info%}
+    <tr class="table-row-link" onclick="window.open('{{item.url}}', '_blank');">
+    <td class="text-start"><a href="{{item.url}}" class="text-dark text-decoration-none">{{item.track_name}}</a></td>
+    <td class="text-center"><a href="{{item.url}}" class="text-dark text-decoration-none">{{item.artist_name}}</a></td>
+    <td class="text-end"><a href="{{item.url}}" class="text-dark text-decoration-none">{{item.played_at}}</a></td>
+    </tr>
+    {% endfor%}
+    
+  </tbody>
+</table>
+
+
+
+
+<!--    <div class="row">-->
+
+<!--        <div class="col-lg-4 text-center pt-4 hoverable"><h6>Track</h6>-->
+<!--            {% for item in play_info %}-->
+<!--            <div>{{ item.track_name }}</div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        <div class="col-lg-4 text-center pt-4"><h6>Artist</h6>-->
+
+<!--            {% for item in play_info %}-->
+<!--            <div>{{ item.artist_name }}</div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+
+<!--        <div class="col-lg-4 text-center pt-4"><h6>Played at</h6>-->
+<!--            {% for item in play_info %}-->
+<!--            <div>{{ item.played_at }}</div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+
+</div>
+{% endblock %}

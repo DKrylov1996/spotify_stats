@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    </head>
+
+    <body>
+        <header class="p-3 header">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <dt><a href="/" class="logo-text d-flex align-items-center me-4 mb-lg-0 text-dark text-decoration-none">
+                    <img src="/static/img/logo.svg" alt="logo">Stats for Spotify</a>
+                </dt>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/top_tracks" class="nav-link px-2 text-body ">Top Tracks</a></li>
+                <li><a href="/top_artists" class="nav-link px-2 text-body ">Top Artists</a></li>
+                <li><a href="/top_genres" class="nav-link px-2 text-body ">Top Genres</a></li>
+                <li><a href="/recently_played" class="nav-link px-2 text-body ">Recently Played</a></li>
+            </ul>
+            {% block login_button %}
+            <div class="text-end">
+                <a href="/auth/login" class="btn login-btn">Login</a>
+            </div>
+            {% endblock %}
+            </div>
+        </div>
+        </header>
+        <div class="border-bottom"></div>
+        {% block ask_for_login %}
+        <div class="container content my-5 p-5 login-container col-12 col-lg-auto mb-2 justify-content-center mb-md-0">
+            <div class="d-flex justify-content-center align-items-center custom-container">
+                <div class="text-center">
+                    <h1 >Your spotify stats</h1>
+                    <p>Please login with your spotify account, to see your track or artist ranking!</p>
+                    <button type="button" class="btn login-btn me-2" onclick="location.href='/auth/login'">Login with Spotify</button>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        <footer class="py-3 my-4">
+            <div class="border-bottom pb-5 mb-3"></div>
+            <p class="text-center text-muted">2023 Created by D. Krylov</p>
+        </footer>
+    </body>
+</html>

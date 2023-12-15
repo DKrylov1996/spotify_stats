@@ -1,0 +1,80 @@
+{% extends "not_logged_in.html" %}
+
+{% block login_button %}
+<button type="button" class="btn btn-outline-dark me-2" onclick="location.href='/logout'">Logout</button>
+{% endblock %}
+
+{% block log_status %}
+<p><b> </b></p>
+{% endblock %}
+
+{% block ask_for_login %}
+<div class="container">
+    <div class="pt-3 text-center">
+        <h2 class="top-name">Top Tracks ({{ time_range_dict[time_range] }})</h2>
+    </div>
+
+
+    <div class="row time-buttons d-flex justify-content-start">
+        <div class="col-4">
+            <form id="createPlaylistForm" action="/create_playlist" method="get">
+                <button class="btn btn-outline-secondary px-2" type="submit">Create playlist</button>
+            </form>
+
+
+            <script>
+                document.getElementById('createPlaylistForm').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Отменяем стандартное действие формы
+
+                    fetch('/create_playlist', {
+                        method: 'GET'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Обработка успешного ответа от сервера
+                            return response.json();
+                        } else {
+                            throw new Error('Failed to create playlist');
+                        }
+                    })
+                    .then(data => {
+                        // Формирование ссылки на созданный плейлист
+                        var playlistLink = data.playlist_link;
+                        var viewPlaylistButton = '<a href="' + playlistLink + '" class="btn login-btn px-2" target="_blank">View playlist</a>';
+
+                        // Замена содержимого формы кнопкой "View playlist" с ссылкой
+                        var form = document.getElementById('createPlaylistForm');
+                        form.innerHTML = viewPlaylistButton;
+                    })
+                    .catch(error => {
+                        // Обработка ошибки
+                        alert('An error occurred: ' + error);
+                    });
+                });
+            </script>
+
+        </div>
+        <div class="col-6 justify-content-start align-items-center ms-5">
+        <form action="/top_tracks" method="get">
+            <button class="btn btn-outline-secondary mb-1 px-2" type="submit" name="time_range" value="short_term">Last 4 weeks</button>
+            <button class="btn btn-outline-secondary mb-1 px-2" type="submit" name="time_range" value="medium_term">Last 6 months</button>
+            <button class="btn btn-outline-secondary mb-1 px-4" type="submit" name="time_range" value="long_term">All time</button>
+        </form>
+        </div>
+    </div>
+    {% for track in tracks %}
+    <div class="row">
+        <div class="col">
+            <div class="d-flex align-items-center">
+                <div class="px-2">{{ track.place }}</div>
+                <div class="p-2"><a href="{{track.url}}"><img src="{{track.img}}" alt="Image"></a></div>
+                <div>
+                    <div>{{track.track_name}}</div>
+                    <div><dt>{{track.artist_name}}</dt></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

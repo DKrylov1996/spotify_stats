@@ -1,0 +1,36 @@
+{% extends "not_logged_in.html" %}
+
+{% block login_button %}
+<button type="button" class="btn btn-outline-dark me-2" onclick="location.href='/logout'">Logout</button>
+{% endblock %}
+
+{% block log_status %}
+<p><b> </b></p>
+{% endblock %}
+
+{% block ask_for_login %}
+<div class="container">
+    <div class="pt-3 text-center">
+        <h2 class="top-name">Top Genres ({{ time_range_dict[time_range] }})</h2>
+    </div>
+    <div class="time-buttons d-flex justify-content-center align-items-center pb-1">
+        <form action="/top_genres" method="get">
+            <button class="btn btn-outline-secondary px-2" type="submit" name="time_range" value="short_term">Last 4 weeks</button>
+            <button class="btn btn-outline-secondary px-2" type="submit" name="time_range" value="medium_term">Last 6 months</button>
+            <button class="btn btn-outline-secondary px-4" type="submit" name="time_range" value="long_term">All time</button>
+        </form>
+    </div>
+    <div class="row">
+        {% set base_item = genres[0][1] %}
+        {% for item in genres %}
+            <div class="py-2">
+                <div>{{ loop.index }}. {{ item[0] }}</div>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ item[1] / base_item * 100 }}%;" aria-valuenow="{{ item[1] / base_item * 100 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

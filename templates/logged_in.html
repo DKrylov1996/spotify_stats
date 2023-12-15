@@ -1,0 +1,19 @@
+{% extends "not_logged_in.html" %}
+
+{% block login_button %}
+<a href="/logout" class="btn login-btn">Logout</a>
+{% endblock %}
+
+{% block ask_for_login %}
+<div class="container content my-5 p-5 login-container col-12 col-lg-auto mb-2 justify-content-center mb-md-0">
+      <div class="d-flex justify-content-center align-items-center custom-container">
+          <div class="top-list text-center">
+            <h1>Your spotify stats</h1>
+            <p>Choose what you want to see:</p>
+              <div class="row"><a href="/top_tracks" class="btn login-btn me-2 my-2" >Top Tracks</a></div>
+              <div class="row"><a href="/top_artists" class="btn login-btn me-2 my-2" >Top Artists</a></div>
+              <div class="row"><a href="/top_genres" class="btn login-btn me-2 my-2" >Top Genres</a></div>
+          </div>
+      </div>
+</div>
+{% endblock %}
